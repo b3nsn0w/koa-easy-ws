@@ -121,4 +121,4 @@ Pull requests are welcome. As always, be respectful towards each other and maybe
 
 koa-easy-ws uses the MIT license. Was considering the WTFPL, but I like the "no warranty" clause.
 
-[ws]: (https://github.com/websockets/ws)
+[ws]: https://github.com/websockets/ws
