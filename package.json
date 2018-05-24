@@ -36,6 +36,6 @@
     "standard": "^11.0.1"
   },
   "pre-commit": [
-    "npm test"
+    "test"
   ]
 }
