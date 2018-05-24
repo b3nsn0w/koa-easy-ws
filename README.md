@@ -85,7 +85,7 @@ app.use(websocketMiddleware) // we already have the instance here
 
 This gives you access to the [**ws**][ws] server object, allowing to pass down custom listeners, connection validators, etc.
 
-In case `ctx.ws` conflicts with something else in your code, koa-easy-ws doesn't mind changing the property name, just pass it as a property. This also lets you use mulltiple websocket middlewares if you ever find a reason to do so:
+In case `ctx.ws` conflicts with something else in your code, koa-easy-ws doesn't mind changing the property name, just pass it as a property. This also lets you use multiple websocket middlewares if you ever find a reason to do so:
 
 ```javascript
 const Koa = require('koa')
@@ -103,7 +103,7 @@ app.use(async (ctx, next) => {
     return socket.send('this is getting out of hand')
   }
 
-  // the second middleware detected an same upgrade request
+  // the second middleware detected the same upgrade request
   if (ctx.maul) {
     const socket = await ctx.maul()
     return socket.send('now there are two of them')
