@@ -1,6 +1,6 @@
 {
   "name": "koa-easy-ws",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Simple Koa middleware for websocket handling",
   "main": "index.js",
   "scripts": {
@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/DeeSnow97/koa-easy-ws.git"
+    "url": "git+https://github.com/b3nsn0w/koa-easy-ws.git"
   },
   "keywords": [
     "koa",
@@ -18,9 +18,9 @@
   "author": "Ben Snow <balintbence97@gmail.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/DeeSnow97/koa-easy-ws/issues"
+    "url": "https://github.com/b3nsn0w/koa-easy-ws/issues"
   },
-  "homepage": "https://github.com/DeeSnow97/koa-easy-ws#readme",
+  "homepage": "https://github.com/b3nsn0w/koa-easy-ws#readme",
   "dependencies": {
     "ws": "^5.2.0"
   },
