@@ -55,7 +55,7 @@ app
 router.get('/pow/obi', async (ctx, next) => {
   if (ctx.ws) {
     const ws = await ctx.ws()
-    ws.send('anakin is evil')
+    ws.send('chancellor palpatine is evil')
   }
 })
 

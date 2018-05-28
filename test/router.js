@@ -21,7 +21,7 @@ app
 router.get('/pow/obi', async (ctx, next) => {
   if (ctx.ws) {
     const ws = await ctx.ws()
-    ws.send('anakin is evil')
+    ws.send('chancellor palpatine is evil')
   }
 })
 
@@ -57,7 +57,7 @@ describe('composing with router', function () {
       const ws = new WebSocket(`ws://${address}/pow/obi`)
 
       ws.once('message', (data) => {
-        expect(data).to.equal('anakin is evil')
+        expect(data).to.equal('chancellor palpatine is evil')
         ws.close()
         resolve()
       })
