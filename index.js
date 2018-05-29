@@ -22,7 +22,7 @@ function createWebsocketMiddleware (propertyName = 'ws') {
       }
     }
 
-    next()
+    await next()
   }
 
   websocketMiddleware.server = wss
