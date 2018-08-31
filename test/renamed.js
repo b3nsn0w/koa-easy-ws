@@ -2,6 +2,7 @@
 
 // sorry for the mess, there has to be a cleaner way
 
+const debug = require('debug')('koa-easy-ws:test')
 const {expect} = require('chai')
 const http = require('http')
 const Koa = require('koa')
@@ -34,21 +35,25 @@ let address // forgive my mutant heresy
 describe('renamed property', function () {
   before(async () => {
     return new Promise((resolve, reject) => {
+      debug("server started for test 'renamed'")
       server.listen()
       server.once('listening', () => {
         const serverAddress = server.address()
         address = `localhost:${serverAddress.port}`
+        debug("server listening for test 'renamed'")
         resolve()
       })
     })
   })
 
   after(() => {
+    debug("server closed for test 'renamed'")
     server.close()
   })
 
-  it('should trigger sidious', async function () {
+  it("should detect 'ctx.sidious' on route '/sidious'", async function () {
     await new Promise((resolve, reject) => {
+      debug("running test 'renamed/sidious'")
       const ws = new WebSocket(`ws://${address}/sidious`)
 
       ws.once('message', (data) => {
@@ -59,8 +64,9 @@ describe('renamed property', function () {
     })
   })
 
-  it('should trigger maul', async function () {
+  it("should detect 'ctx.maul' on route '/maul'", async function () {
     await new Promise((resolve, reject) => {
+      debug("running test 'renamed/maul'")
       const ws = new WebSocket(`ws://${address}/maul`)
 
       ws.once('message', (data) => {

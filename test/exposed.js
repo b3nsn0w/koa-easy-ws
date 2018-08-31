@@ -1,5 +1,6 @@
 /* eslint-env mocha */
 
+const debug = require('debug')('koa-easy-ws:test')
 const {expect} = require('chai')
 // const Koa = require('koa')
 const WebSocket = require('ws')
@@ -12,6 +13,7 @@ const websocketServer = websocketMiddleware.server // this is where the fun begi
 
 describe('exposed server', () => {
   it('should be a ws server', () => {
+    debug("running test 'exposed'")
     expect(websocketServer).to.be.instanceOf(WebSocket.Server)
   })
 })
