@@ -14,8 +14,11 @@ const websocket = require('..')
 const app = new Koa()
 const router = new Router()
 
+const server = http.createServer(app.callback())
+let address // forgive my mutant heresy
+
 app
-  .use(websocket())
+  .use(websocket('ws', {server}))
   .use(router.routes())
   .use(router.allowedMethods())
 
@@ -33,9 +36,6 @@ router.get('/pow/ani', async (ctx, next) => {
     ws.send('404')
   }
 })
-
-const server = http.createServer(app.callback())
-let address // forgive my mutant heresy
 
 describe('composing with router', function () {
   before(async () => {

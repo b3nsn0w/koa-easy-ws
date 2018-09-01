@@ -8,7 +8,7 @@ const WebSocket = require('ws')
 const websocket = require('..')
 
 // const app = new Koa()
-const websocketMiddleware = websocket()
+const websocketMiddleware = websocket('ws', {noServerWorkaround: true}) // required for testing on node 9 or earlier
 const websocketServer = websocketMiddleware.server // this is where the fun begins
 
 describe('exposed server', () => {

@@ -12,8 +12,11 @@ const websocket = require('..')
 
 const app = new Koa()
 
-app.use(websocket('sidious')) // we just renamed ctx.ws to ctx.sidious
-app.use(websocket('maul')) // attach another one for no good reason
+const server = http.createServer(app.callback())
+let address // forgive my mutant heresy
+
+app.use(websocket('sidious', server)) // we just renamed ctx.ws to ctx.sidious
+app.use(websocket('maul', server)) // attach another one for no good reason
 
 app.use(async (ctx, next) => {
   // the first middleware detected an upgrade request
@@ -28,9 +31,6 @@ app.use(async (ctx, next) => {
     return socket.send('now there are two of them')
   }
 })
-
-const server = http.createServer(app.callback())
-let address // forgive my mutant heresy
 
 describe('renamed property', function () {
   before(async () => {

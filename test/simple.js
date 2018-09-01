@@ -13,7 +13,10 @@ const websocket = require('..')
 
 const app = new Koa()
 
-app.use(websocket())
+const server = http.createServer(app.callback())
+let address // forgive my mutant heresy
+
+app.use(websocket('ws', server))
 app.use(async (ctx, next) => {
   // check if the current request is websocket
   if (ctx.ws) {
@@ -26,9 +29,6 @@ app.use(async (ctx, next) => {
   // we're back to regular old http here
   ctx.body = 'general kenobi'
 })
-
-const server = http.createServer(app.callback())
-let address // forgive my mutant heresy
 
 describe('simple example', function () {
   before(async () => {

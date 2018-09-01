@@ -25,15 +25,15 @@ app.use(async (ctx, next) => {
 
 First, you need to pass the koa-easy-ws middleware before the one handling your request. Remember to call it as a function, `app.use(websocket())`, not `app.use(websocket)`. This sets up on-demand websocket handling for the rest of the middleware chain.
 
-The middleware adds the `ctx.ws()` function whenever it detects an upgrade request, calling which handles the websocket and returns a [**ws**][ws] instance. If not called, regular Koa flow continues, likely resulting in a client-side error.
+The middleware adds the `ctx.ws()` function whenever it detects an upgrade request, calling which handles the websocket and returns a [ws][ws] instance. If not called, regular Koa flow continues, likely resulting in a client-side error.
 
 # Features
 
  - No magic. This is a middleware, it doesn't turn your Koa app into a KoaMagicWebSocketServer. It knows its place.
- - Integrates [**ws**][ws], one of the fastest and most popular websocket libraries.
+ - Integrates [ws][ws], one of the fastest and most popular websocket libraries.
  - Full composability. Since this is just a middleware, it's not picky on what other libraries you use.
- - Minimal, unopinionated 24 SLOC codebase. Seriously, this readme alone contains more code than what's imported into your project. (sorry about the tests though)
- - One dependency only, and it's the ws library. No need for more clutter in your node_modules.
+ - Minimal, unopinionated 47 SLOC codebase. Seriously, this readme alone contains more code than what's imported into your project. (sorry about the tests though)
+ - Two dependencies only, and it's the ws library and [debug][debug] (because apparently logs are not a bad idea). No need for more clutter in your node_modules.
 
 # Examples and advanced configuration
 
@@ -83,7 +83,7 @@ app.use(websocketMiddleware) // we already have the instance here
 // <insert rest of the app>
 ```
 
-This gives you access to the [**ws**][ws] server object, allowing to pass down custom listeners, connection validators, etc.
+This gives you access to the [ws][ws] server object, allowing to pass down custom listeners, connection validators, etc.
 
 In case `ctx.ws` conflicts with something else in your code, koa-easy-ws doesn't mind changing the property name, just pass it as a property. This also lets you use multiple websocket middlewares if you ever find a reason to do so:
 
@@ -115,6 +115,31 @@ Note: in this example `ctx.maul` is never used because there is no limit on the 
 
 From here, the sky is the limit, unless you work for SpaceX.
 
+# Special usage for Node 9 or earlier
+
+Node's HTTP server doesn't send upgrade requests through the normal callback (and thus your Koa middleware chain) prior to version 10, preventing koa-easy-ws from handling them. Because of this, if you target Node 9 or earlier, you must pass your HTTP server to the middleware which handles the workaround:
+
+```javascript
+const server = http.createServer(app.callback())
+
+app.use(websocket('ws', server))
+
+// alternatively, you can pass it as part of the options object:
+app.use(websocket('ws2', {
+  server: server
+}))
+
+server.listen(process.env.PORT) // use this function instead of your app.listen() call
+```
+
+koa-easy-ws then automatically feeds any upgrade request into your regular middleware chain. If you wish to opt out and do this yourself, use the `noServerWorkaround` option:
+
+```javascript
+app.use(websocket('ws', {
+  noServerWorkaround: true
+}))
+```
+
 # Contributing
 
 Pull requests are welcome. As always, be respectful towards each other and maybe run or create tests, as appropriate. It's on `npm test`, as usual.
@@ -122,3 +147,4 @@ Pull requests are welcome. As always, be respectful towards each other and maybe
 koa-easy-ws uses the MIT license. Was considering the WTFPL, but I like the "no warranty" clause.
 
 [ws]: https://github.com/websockets/ws
+[debug]: https://github.com/visionmedia/debug
