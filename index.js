@@ -19,7 +19,7 @@ function createWebsocketMiddleware (propertyName = 'ws', options) {
     if (!options.server) {
       throw new TypeError(`
         If you target Node 9 or earlier you must provide the HTTP server either as an option or as the second parameter.
-        See the readme for more instructions: https://npmjs.com/package/koa-easy-ws#special-usage-for-node-9-or-earlier
+        See the readme for more instructions: https://github.com/b3nsn0w/koa-easy-ws#special-usage-for-node-9-or-earlier
       `.trim().split('\n').map(s => s.trim()).join('\n'))
     } else {
       if (!serversPatched.has(options.server)) {
