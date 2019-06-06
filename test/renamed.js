@@ -3,7 +3,7 @@
 // sorry for the mess, there has to be a cleaner way
 
 const debug = require('debug')('koa-easy-ws:test')
-const {expect} = require('chai')
+const { expect } = require('chai')
 const http = require('http')
 const Koa = require('koa')
 const WebSocket = require('ws')

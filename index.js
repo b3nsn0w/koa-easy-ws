@@ -5,15 +5,15 @@ const WebSocket = require('ws')
 
 const manualPromise = () => {
   let result
-  const promise = new Promise((resolve, reject) => (result = {resolve, reject}))
-  return {...result, promise}
+  const promise = new Promise((resolve, reject) => (result = { resolve, reject }))
+  return { ...result, promise }
 }
 
 const serversPatched = new WeakSet()
 
 function createWebsocketMiddleware (propertyName = 'ws', options) {
   if (!options) options = {}
-  if (options instanceof http.Server) options = {server: options}
+  if (options instanceof http.Server) options = { server: options }
 
   if (parseInt(process.versions.node) < 10 && !options.noServerWorkaround) { // node 9 or earlier needs a workaround for upgrade requests
     if (!options.server) {
@@ -31,7 +31,7 @@ function createWebsocketMiddleware (propertyName = 'ws', options) {
   }
 
   debug(`websocket middleware created with property name '${propertyName}'`)
-  const wss = new WebSocket.Server({noServer: true})
+  const wss = new WebSocket.Server({ noServer: true })
 
   const websocketMiddleware = async (ctx, next) => {
     debug(`websocket middleware called on route ${ctx.path}`)
@@ -40,7 +40,7 @@ function createWebsocketMiddleware (propertyName = 'ws', options) {
     if (~upgradeHeader.indexOf('websocket')) {
       debug(`websocket middleware in use on route ${ctx.path}`)
       ctx[propertyName] = async () => {
-        const {promise, resolve} = manualPromise()
+        const { promise, resolve } = manualPromise()
         wss.handleUpgrade(ctx.req, ctx.request.socket, Buffer.alloc(0), resolve)
         ctx.respond = false
 

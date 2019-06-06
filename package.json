@@ -1,6 +1,6 @@
 {
   "name": "koa-easy-ws",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "Simple Koa middleware for websocket handling",
   "main": "index.js",
   "scripts": {
@@ -31,10 +31,10 @@
     "koa-router": "^7.4.0",
     "mocha": "^5.2.0",
     "pre-commit": "^1.2.2",
-    "promise": "^8.0.1",
+    "promise": "^8.0.3",
     "request": "^2.87.0",
-    "request-promise": "^4.2.2",
-    "standard": "^11.0.1"
+    "request-promise": "^4.2.4",
+    "standard": "^12.0.1"
   },
   "pre-commit": [
     "test"

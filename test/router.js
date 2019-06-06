@@ -3,7 +3,7 @@
 // sorry for the mess, there has to be a cleaner way
 
 const debug = require('debug')('koa-easy-ws:test')
-const {expect} = require('chai')
+const { expect } = require('chai')
 const http = require('http')
 const Koa = require('koa')
 const Router = require('koa-router')
@@ -18,7 +18,7 @@ const server = http.createServer(app.callback())
 let address // forgive my mutant heresy
 
 app
-  .use(websocket('ws', {server}))
+  .use(websocket('ws', { server }))
   .use(router.routes())
   .use(router.allowedMethods())
 
