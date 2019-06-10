@@ -3,12 +3,6 @@ const http = require('http')
 const process = require('process')
 const WebSocket = require('ws')
 
-const manualPromise = () => {
-  let result
-  const promise = new Promise((resolve, reject) => (result = { resolve, reject }))
-  return { ...result, promise }
-}
-
 const serversPatched = new WeakSet()
 
 function createWebsocketMiddleware (propertyName = 'ws', options) {
@@ -39,12 +33,9 @@ function createWebsocketMiddleware (propertyName = 'ws', options) {
 
     if (~upgradeHeader.indexOf('websocket')) {
       debug(`websocket middleware in use on route ${ctx.path}`)
-      ctx[propertyName] = async () => {
-        const { promise, resolve } = manualPromise()
+      ctx[propertyName] = new Promise((resolve) => {
         wss.handleUpgrade(ctx.req, ctx.request.socket, Buffer.alloc(0), resolve)
         ctx.respond = false
-
-        return promise
       }
     }
 
