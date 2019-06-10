@@ -33,10 +33,10 @@ function createWebsocketMiddleware (propertyName = 'ws', options) {
 
     if (~upgradeHeader.indexOf('websocket')) {
       debug(`websocket middleware in use on route ${ctx.path}`)
-      ctx[propertyName] = new Promise((resolve) => {
+      ctx[propertyName] = () => new Promise((resolve) => {
         wss.handleUpgrade(ctx.req, ctx.request.socket, Buffer.alloc(0), resolve)
         ctx.respond = false
-      }
+      })
     }
 
     await next()

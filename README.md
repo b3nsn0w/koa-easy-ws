@@ -32,7 +32,7 @@ The middleware adds the `ctx.ws()` function whenever it detects an upgrade reque
  - No magic. This is a middleware, it doesn't turn your Koa app into a KoaMagicWebSocketServer. It knows its place.
  - Integrates [ws][ws], one of the fastest and most popular websocket libraries.
  - Full composability. Since this is just a middleware, it's not picky on what other libraries you use.
- - Minimal, unopinionated 47 SLOC codebase. Seriously, this readme alone contains more code than what's imported into your project. (sorry about the tests though)
+ - Minimal, unopinionated 40 SLOC codebase. Seriously, this readme alone contains more code than what's imported into your project. (sorry about the tests though)
  - Two dependencies only, and it's the ws library and [debug][debug] (because apparently logs are not a bad idea). No need for more clutter in your node_modules.
 
 # Examples and advanced configuration
