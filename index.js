@@ -9,21 +9,6 @@ function createWebsocketMiddleware (propertyName = 'ws', options) {
   if (!options) options = {}
   if (options instanceof http.Server) options = { server: options }
 
-  if (parseInt(process.versions.node) < 10 && !options.noServerWorkaround) { // node 9 or earlier needs a workaround for upgrade requests
-    if (!options.server) {
-      throw new TypeError(`
-        If you target Node 9 or earlier you must provide the HTTP server either as an option or as the second parameter.
-        See the readme for more instructions: https://github.com/b3nsn0w/koa-easy-ws#special-usage-for-node-9-or-earlier
-      `.trim().split('\n').map(s => s.trim()).join('\n'))
-    } else {
-      if (!serversPatched.has(options.server)) {
-        serversPatched.add(options.server)
-        options.server.on('upgrade', req => options.server.emit('request', req, new http.ServerResponse(req)))
-        debug('added workaround to a server')
-      }
-    }
-  }
-
   debug(`websocket middleware created with property name '${propertyName}'`)
   const wss = new WebSocket.Server({ noServer: true })
 
