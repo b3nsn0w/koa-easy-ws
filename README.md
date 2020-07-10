@@ -85,6 +85,19 @@ app.use(websocketMiddleware) // we already have the instance here
 
 This gives you access to the [ws][ws] server object, allowing to pass down custom listeners, connection validators, etc.
 
+Alternatively, you can pass options to the underlying [ws][ws] server as part of the options object:
+
+```javascript
+app.use(websocket('ws', {
+  wsOptions: {
+    clientTracking: false,
+    maxPayload: 69420
+  }
+}))
+```
+
+The `wsOptions` object will be forwarded to [ws][ws] unchanged, you can check [its documentation][ws] for the available options.
+
 In case `ctx.ws` conflicts with something else in your code, koa-easy-ws doesn't mind changing the property name, just pass it as a property. This also lets you use multiple websocket middlewares if you ever find a reason to do so:
 
 ```javascript

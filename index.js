@@ -25,7 +25,7 @@ function createWebsocketMiddleware (propertyName = 'ws', options) {
   }
 
   debug(`websocket middleware created with property name '${propertyName}'`)
-  const wss = new WebSocket.Server({ noServer: true })
+  const wss = new WebSocket.Server({ ...options.wsOptions, noServer: true })
 
   const websocketMiddleware = async (ctx, next) => {
     debug(`websocket middleware called on route ${ctx.path}`)
