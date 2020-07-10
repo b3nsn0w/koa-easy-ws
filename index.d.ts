@@ -1,10 +1,11 @@
 import WebSocket, { ServerOptions } from "ws";
 import http from "http";
+import { Middleware } from "koa";
 
 export type WebSocketContext = { ws?: () => Promise<WebSocket> };
-declare const webSocket: (
+declare function webSocket(
   propertyName?: "ws",
   options?: { server?: http.Server; wsOptions?: ServerOptions }
-) => any;
+): Middleware<{}, WebSocketContext>;
 
 export default webSocket;
