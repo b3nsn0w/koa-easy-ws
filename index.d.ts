@@ -6,9 +6,13 @@ export type WebSocketContext<PropertyName extends string = "ws"> = {
   [ws in PropertyName]?: () => Promise<WebSocket>;
 };
 
+export type WebSocketMiddleware = {
+  server: WebSocket.Server;
+};
+
 declare function websocket<PropertyName extends string = "ws">(
   propertyName?: PropertyName,
   options?: { server?: http.Server; wsOptions?: ServerOptions }
-): Middleware<{ server: WebSocket.Server }, WebSocketContext<PropertyName>>;
+): Middleware<{}, WebSocketContext<PropertyName>> & WebSocketMiddleware;
 
 export default websocket;
