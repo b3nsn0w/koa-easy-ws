@@ -29,7 +29,7 @@ function createWebsocketMiddleware (propertyName = 'ws', options) {
 
   const websocketMiddleware = async (ctx, next) => {
     debug(`websocket middleware called on route ${ctx.path}`)
-    const upgradeHeader = (ctx.request.headers.upgrade || '').split(',').map(s => s.trim())
+    const upgradeHeader = (ctx.request.headers.upgrade || '').split(',').map(s => s.trim().toLowerCase())
 
     if (~upgradeHeader.indexOf('websocket')) {
       debug(`websocket middleware in use on route ${ctx.path}`)
