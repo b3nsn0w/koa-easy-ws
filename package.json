@@ -23,8 +23,10 @@
   },
   "homepage": "https://github.com/b3nsn0w/koa-easy-ws#readme",
   "dependencies": {
-    "debug": "^4.1.1",
-    "ws": "^7.5.4"
+    "debug": "^4.1.1"
+  },
+  "peerDependencies": {
+    "ws": ">=7"
   },
   "devDependencies": {
     "@types/koa": "^2.11.3",
@@ -37,7 +39,7 @@
     "promise": "^8.0.3",
     "request": "^2.87.0",
     "request-promise": "^4.2.4",
-    "standard": "^12.0.1"
+    "standard": "^16.0.4"
   },
   "pre-commit": [
     "test"
