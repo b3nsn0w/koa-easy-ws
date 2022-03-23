@@ -57,7 +57,7 @@ describe('renamed property', function () {
       const ws = new WebSocket(`ws://${address}/sidious`)
 
       ws.once('message', (data) => {
-        expect(data).to.equal('this is getting out of hand')
+        expect(data.toString('utf8')).to.equal('this is getting out of hand')
         ws.close()
         resolve()
       })
@@ -70,7 +70,7 @@ describe('renamed property', function () {
       const ws = new WebSocket(`ws://${address}/maul`)
 
       ws.once('message', (data) => {
-        expect(data).to.equal('now there are two of them')
+        expect(data.toString('utf8')).to.equal('now there are two of them')
         ws.close()
         resolve()
       })

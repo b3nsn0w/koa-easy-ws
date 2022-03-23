@@ -62,7 +62,7 @@ describe('composing with router', function () {
       const ws = new WebSocket(`ws://${address}/pow/obi`)
 
       ws.once('message', (data) => {
-        expect(data).to.equal('chancellor palpatine is evil')
+        expect(data.toString('utf8')).to.equal('chancellor palpatine is evil')
         ws.close()
         resolve()
       })
@@ -75,7 +75,7 @@ describe('composing with router', function () {
       const ws = new WebSocket(`ws://${address}/pow/ani`)
 
       ws.once('message', (data) => {
-        expect(data).to.equal('the jedi are evil')
+        expect(data.toString('utf8')).to.equal('the jedi are evil')
         ws.close()
         resolve()
       })

@@ -55,7 +55,7 @@ describe('simple example', function () {
       const ws = new WebSocket(`ws://${address}`)
 
       ws.on('message', (data) => {
-        expect(data).to.equal('hello there')
+        expect(data.toString('utf8')).to.equal('hello there')
         ws.close()
         resolve()
       })
