@@ -1,6 +1,6 @@
 {
   "name": "koa-easy-ws",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "Simple Koa middleware for websocket handling",
   "main": "index.js",
   "types": "index.d.ts",
@@ -26,13 +26,11 @@
     "debug": "^4.1.1"
   },
   "peerDependencies": {
-    "ws": "^8.5.0"
+    "ws": ">=8",
+    "koa": ">=2"
   },
   "devDependencies": {
-    "@types/koa": "^2.11.3",
-    "@types/ws": "^7.2.6",
     "chai": "^4.1.2",
-    "koa": "^2.5.1",
     "koa-router": "^7.4.0",
     "mocha": "^9.2.2",
     "pre-commit": "^1.2.2",
