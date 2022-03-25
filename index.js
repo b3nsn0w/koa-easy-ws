@@ -40,6 +40,7 @@ function createWebsocketMiddleware (propertyName = 'ws', options) {
         })
         ctx.respond = false
       })
+      ctx.wss = wss;
     }
 
     await next()
