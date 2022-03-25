@@ -23,6 +23,8 @@ app.use(async (ctx, next) => {
 })
 ```
 
+**Note: you will also need to install the `ws` package** (`npm install --save ws` or `yarn add ws`), **it is linked only as a peer dependency.**
+
 First, you need to pass the koa-easy-ws middleware before the one handling your request. Remember to call it as a function, `app.use(websocket())`, not `app.use(websocket)`. This sets up on-demand websocket handling for the rest of the middleware chain.
 
 The middleware adds the `ctx.ws()` function whenever it detects an upgrade request, calling which handles the websocket and returns a [ws][ws] instance. If not called, regular Koa flow continues, likely resulting in a client-side error.
@@ -32,7 +34,7 @@ The middleware adds the `ctx.ws()` function whenever it detects an upgrade reque
  - No magic. This is a middleware, it doesn't turn your Koa app into a KoaMagicWebSocketServer. It knows its place.
  - Integrates [ws][ws], one of the fastest and most popular websocket libraries.
  - Full composability. Since this is just a middleware, it's not picky on what other libraries you use.
- - Minimal, unopinionated 40 SLOC codebase. Seriously, this readme alone contains more code than what's imported into your project. (sorry about the tests though)
+ - Minimal, unopinionated 44 SLOC codebase. Seriously, this readme alone contains more code than what's imported into your project. (sorry about the tests though)
  - Two dependencies only, and it's the ws library and [debug][debug] (because apparently logs are not a bad idea). No need for more clutter in your node_modules.
 
 # Examples and advanced configuration
@@ -126,7 +128,32 @@ app.use(async (ctx, next) => {
 
 Note: in this example `ctx.maul` is never used because there is no limit on the authority of `ctx.sidious`. However, if you define custom logic this technique could sort incoming requests to separate websocket servers.
 
+If needed, you can also expose the websocket server on a context property, which can itself be renamed:
+
+```javascript
+const Koa = require('koa')
+const websocket = require('koa-easy-ws')
+
+const app = new Koa()
+
+app.use(websocket('ws', { exposeServerOn: 'wss' }))
+
+app.use(async (ctx, next) => {
+  if (ctx.ws) {
+    console.log('found the server', ctx.wss)
+  }
+})
+```
+
+In the above example, `ctx.ws` behaves as normal, but you also have the server instance available on `ctx.wss`. This saves you the trouble of having to access `websocket().server` as seen in a prior example.
+
 From here, the sky is the limit, unless you work for SpaceX.
+
+# Version 2 changelog
+
+In version 2, `ws` has been moved to a peer dependency, which is a breaking change with the way dependency resolution works. It will _technically_ work if you just upgrade to v2 with no changes, especially because of the `package-lock.json` or `yarn.lock` keeping `ws` there, but it would most likely inject a weird bug. **To avoid unpredictable issues in the future, add `ws` to your own package's dependencies.**
+
+On top of that, the peer dependency is for ws@8, not ws@7 which koa-easy-ws previously used, so refer to ws@8's breaking changes for that (but if you're fine with a warning ws@7 should continue to work).
 
 # Special usage for Node 9 or earlier
 
